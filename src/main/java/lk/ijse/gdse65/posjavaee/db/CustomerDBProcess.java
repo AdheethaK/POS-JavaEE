@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerDBProcess {
@@ -42,8 +43,27 @@ public class CustomerDBProcess {
 
     }
 
-    public void search(String id,Connection connection){
+    public CustomerDTO search(String id,Connection connection){
+        try {
+            PreparedStatement ps = connection.prepareStatement(SEARCH);
+            ps.setString(1,id);
 
+            ResultSet rst = ps.executeQuery();
+
+            while (rst.next()){
+                return new CustomerDTO(
+                        rst.getString(1),
+                        rst.getString(2),
+                        rst.getString(3),
+                        rst.getString(4),
+                        rst.getString(5)
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void delete(String id,Connection connection){

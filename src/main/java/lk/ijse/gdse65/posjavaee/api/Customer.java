@@ -1,5 +1,6 @@
 package lk.ijse.gdse65.posjavaee.api;
 
+import jakarta.json.Json;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.servlet.ServletException;
@@ -55,7 +56,21 @@ public class Customer extends HttpServlet {
 
     @Override // search
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("GET works :)");
+        CustomerDBProcess customerDBProcess = new CustomerDBProcess();
+        String id = req.getParameter("customer_id");
+
+        if (id == null){
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }else {
+            CustomerDTO customerDTO = customerDBProcess.search(id,connection);
+//            System.out.println(customerDTO);
+
+            //send data
+            Jsonb jsonb = JsonbBuilder.create();
+            String customerJSON = jsonb.toJson(customerDTO);
+//            System.out.println(customerJSON);
+            resp.getWriter().write(customerJSON);
+        }
     }
 
     @Override // update
