@@ -4,6 +4,7 @@
     <facet type="web" name="Web">
       <configuration>
         <descriptors>
+          <deploymentDescriptor name="context.xml" url="file://$MODULE_DIR$/src/main/webapp/META-INF/context.xml" />
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
@@ -35,5 +36,15 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.7.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.7.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.7.1" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse:yasson:3.0.3" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.json.bind:jakarta.json.bind-api:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.json:jakarta.json-api:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.parsson:parsson:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.30" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.32" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.2.6" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.2.6" level="project" />
+    <orderEntry type="library" name="Maven: com.mysql:mysql-connector-j:8.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.21.9" level="project" />
   </component>
 </module>
