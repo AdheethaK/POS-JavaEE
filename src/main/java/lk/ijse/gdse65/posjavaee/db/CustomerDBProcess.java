@@ -40,7 +40,22 @@ public class CustomerDBProcess {
     }
 
     public void update(CustomerDTO customerDTO,Connection connection){
+        try {
+            PreparedStatement ps = connection.prepareStatement(UPDATE);
+            ps.setString(1, customerDTO.getCustomer_first_name());
+            ps.setString(2, customerDTO.getCustomer_last_name());
+            ps.setString(3, customerDTO.getCustomer_email());
+            ps.setString(4, customerDTO.getCustomer_address());
+            ps.setString(5, customerDTO.getCustomer_id());
 
+            if (ps.executeUpdate() != 0){
+                logger.info("customer successfully saved :)");
+            }else{
+                logger.info("error in customer save :(");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public CustomerDTO search(String id,Connection connection){
@@ -66,8 +81,17 @@ public class CustomerDBProcess {
         return null;
     }
 
-    public void delete(String id,Connection connection){
+    public boolean delete(String id,Connection connection){
+        try {
+            PreparedStatement ps = connection.prepareStatement(DELETE);
+            ps.setString(1,id);
 
+            return (ps.executeUpdate() > 0);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }
