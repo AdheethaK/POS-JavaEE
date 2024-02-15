@@ -47,12 +47,18 @@ public class Customer extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }else {
 
-            System.out.println(req.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
+//            System.out.println(req.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
 
             Jsonb jsonb = JsonbBuilder.create();
             CustomerDTO customerDTO = jsonb.fromJson(req.getReader(),CustomerDTO.class);
             CustomerDBProcess customerDBProcess = new CustomerDBProcess();
-            customerDBProcess.save(customerDTO,connection);
+            boolean isSaved = customerDBProcess.save(customerDTO,connection);
+
+            if (isSaved){
+                logger.info("customer successfully saved :)");
+            } else {
+                logger.info("error in customer save :(");
+            }
 
         }
     }
@@ -94,16 +100,13 @@ public class Customer extends HttpServlet {
     @Override // delete
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CustomerDBProcess customerDBProcess = new CustomerDBProcess();
-//        String id = req.getParameter("customer_id");
+        String id = req.getParameter("id");
 
-        System.out.println("id : "+req.getParameter("customer_id"));
-
-//        if (id == null){
-//            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
-//        }else {
-//////            boolean isDeleted = customerDBProcess.delete(id,connection);
-//////            System.out.println(customerDTO);
-////            logger.info("customer deleted "+isDeleted+" :)");
-//        }
+        if (id == null){
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }else {
+            boolean isDeleted = customerDBProcess.delete(id,connection);
+            logger.info("customer deleted "+isDeleted+" :)");
+        }
     }
 }

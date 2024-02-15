@@ -19,7 +19,7 @@ public class CustomerDBProcess {
     private static final String GET_ALL = "SELECT * FROM customer";
     private static final String DELETE = "DELETE FROM customer WHERE id=?";
 
-    public void save(CustomerDTO customerDTO, Connection connection){
+    public boolean save(CustomerDTO customerDTO, Connection connection){
         try {
             PreparedStatement ps = connection.prepareStatement(SAVE);
             ps.setString(1, customerDTO.getCustomer_id());
@@ -28,12 +28,11 @@ public class CustomerDBProcess {
             ps.setString(4, customerDTO.getCustomer_email());
             ps.setString(5, customerDTO.getCustomer_address());
 
-            if (ps.executeUpdate() != 0){
-                System.out.println("customer successfully saved :)");
+            if ((ps.executeUpdate() > 0)){
+                return true;
             }else{
-                System.out.println("error in customer save :(");
+                return false;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
