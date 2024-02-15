@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CustomerDBProcess {
     final static Logger logger = LoggerFactory.getLogger(CustomerDBProcess.class);
@@ -15,6 +16,7 @@ public class CustomerDBProcess {
     private static final String SAVE = "INSERT INTO customer (id,first_name,last_name,email,address) VALUES(?,?,?,?,?)";
     private static final String UPDATE = "UPDATE customer SET first_name=?,last_name=?,email=?,address=? WHERE id=?";
     private static final String SEARCH = "SELECT * FROM customer WHERE id=?";
+    private static final String GET_ALL = "SELECT * FROM customer";
     private static final String DELETE = "DELETE FROM customer WHERE id=?";
 
     public void save(CustomerDTO customerDTO, Connection connection){
@@ -75,6 +77,28 @@ public class CustomerDBProcess {
                 );
             }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<CustomerDTO> getAllCustomers(Connection connection){
+        ArrayList<CustomerDTO> customerDTOS = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(GET_ALL);
+            ResultSet rst = ps.executeQuery();
+
+            while (rst.next()){
+                customerDTOS.add(new CustomerDTO(
+                        rst.getString(1),
+                        rst.getString(2),
+                        rst.getString(3),
+                        rst.getString(4),
+                        rst.getString(5)));
+            }
+            return customerDTOS;
         } catch (SQLException e) {
             e.printStackTrace();
         }
