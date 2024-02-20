@@ -12,9 +12,9 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/*")
 public class CORSFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println("CORS origin :)");
+//        System.out.println("CORS origin :)");
 
-        System.out.println("CORSFilter HTTP request : "+request.getMethod());
+//        System.out.println("CORSFilter HTTP request : "+request.getMethod());
 
 //        //Allow all domains to consume the content
 //        res.addHeader("Access-Control-Allow-Origin","*");
@@ -39,6 +39,5 @@ public class CORSFilter extends HttpFilter {
 
         chain.doFilter(request, response);
 
-        System.out.println("----------------------------------");
     }
 }

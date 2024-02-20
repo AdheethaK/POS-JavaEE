@@ -1,6 +1,5 @@
 package lk.ijse.gdse65.posjavaee.dto;
 
-
 import lombok.*;
 
 import java.io.Serializable;
